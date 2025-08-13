@@ -27,9 +27,15 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.boot:spring-boot-devtools' //개발에서 도움이 되는 기능들을 포함하고 있음
-	//캐시를 자체적으로 삭제 -> reloading을 줄여줌
-	//build->recompile을 통해 내용을 바꾼 해당 html 파일만을 변경할 수 있다
+
+	// 개발에서 도움이 되는 기능들을 포함하고 있음
+	// build->recompile을 통해 reloading 없이 내용을 바꾼 해당 html 파일만을 변경할 수 있다
+	implementation 'org.springframework.boot:spring-boot-devtools'
+
+	// 쿼리 파라미터를 로그로 남기는 외부 라이브러리
+	// 다른 세팅 필요 없이 라이브러리를 가져오기만 하면 됨
+	// implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.10.0'
+
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.h2database:h2'
 	annotationProcessor 'org.projectlombok:lombok'
