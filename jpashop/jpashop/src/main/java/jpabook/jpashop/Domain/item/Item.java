@@ -1,8 +1,12 @@
 package jpabook.jpashop.Domain.item;
 
 import jakarta.persistence.*;
+import jpabook.jpashop.Domain.Category;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 // 추상 클래스
 // 해당 클래스를 상속한 Album, Book, Movie 클래스가 만들어진다
@@ -24,4 +28,6 @@ public abstract class Item {
     private int price;
     private int stockQuantity;
 
+    @ManyToMany(mappedBy = "items")
+    private List<Category> categories = new ArrayList<>();
 }
