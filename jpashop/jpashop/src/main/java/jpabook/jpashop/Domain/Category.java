@@ -1,6 +1,7 @@
 package jpabook.jpashop.Domain;
 
 import jakarta.persistence.*;
+import jakarta.persistence.criteria.Fetch;
 import jpabook.jpashop.Domain.item.Item;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,10 +25,18 @@ public class Category {
             inverseJoinColumns = @JoinColumn(name = "item_id"))
     private List<Item> items = new ArrayList<>();
 
-    @ManyToOne // 본인이 본인에게 연결. 키를 가지는 쪽
+    @ManyToOne(fetch = FetchType.LAZY) // 본인이 본인에게 연결. 키를 가지는 쪽
     @JoinColumn(name = "parent_id")
     private Category parent;
 
     @OneToMany(mappedBy = "parent") // 본인이 본인에게 연결
     private List<Category> child = new ArrayList<>();
+
+
+    /// 연관관계 메소드 ///
+
+    public void addChildCategory(Category category){
+        this.child.add(category);
+        category.setParent(this);
+    }
 }
