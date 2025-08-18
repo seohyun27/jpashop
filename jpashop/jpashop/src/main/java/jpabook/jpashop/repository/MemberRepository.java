@@ -11,8 +11,11 @@ import java.util.List;
 @RequiredArgsConstructor    // lombok의 어노테이션 : final 함수들만을 가지고 기본 생성자를 만들어줌
                             // 기본 생성자를 만들 필요 없음 + @Autowired 없어도 됨 = 해당 어노테이션 하나로 의존성 주입이 모두 끝
 public class MemberRepository {
+    /// 주의! : @RequiredArgsConstructor 어노테이션이 의존성 주입으로 작동하기 위해서는 반드시 final 키워드가 함께 필요함!!!!
+    ///        final 키워드가 붙은 어트리뷰트만을 넣어 생성자를 만들기 때문!!!
+
     // @PersistenceContext         // 스프링부트가 엔티티 매니저를 생성하게 하기 위한 어노테이션
-    private EntityManager em;	// JPA를 사용하기 위해서는 엔티티매니저가 필요함
+    private final EntityManager em;	// JPA를 사용하기 위해서는 엔티티매니저가 필요함
 
     public void save(Member member){ // JPA가 DB 안에 Member 변수를 추가해줌
         em.persist(member);
