@@ -1,8 +1,7 @@
-package jpabook.jpashop.Domain;
+package jpabook.jpashop.domain;
 
 import jakarta.persistence.Embeddable;
 import lombok.Getter;
-import lombok.Setter;
 
 // @Embeddable : 해당 클래스를 값 타입으로 선언. 다른 테이블 내부에 내장될 수 있음
 // 값 타입의 경우 한 번 설정된 값이 이후에 변경되지 않도록 해야 함 -> 생성 시에만 값을 설정할 수 있도록
