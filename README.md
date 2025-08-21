@@ -5,7 +5,7 @@ Backup repository for a JPA-based shop example project (3-1)
 
 ## Contents
 ### 🧾 Program Code
-All codes are in 'jpashop/jpashop'
+All codes are in 'jpashop/'
 #### 🛠️ build.gradle
 Project build configuration
 #### ⚙️ settings.gradle
