@@ -14,4 +14,3 @@ Subproject and name configuration
 - 📁 main/ : Source code for the main application
 - 📁 test/ : Source code for tests
 
-
