@@ -25,6 +25,18 @@ public class ItemService {
         itemRepository.save(item);
     }
 
+    public void updateItem(Long id, String name, int price, int stockQuantity){
+        Item item = itemRepository.findOne(id); // DB 내에서 꺼낸 영속성 객체
+        item.setName(name);
+        item.setPrice(price);
+        item.setStockQuantity(stockQuantity);
+        
+        // 영속성 객체의 내용을 바꾸면 JPA는 더디 채킹 기능을 사용해 DB에 해당 내용을 반영한다
+        // 자동으로 변경 쿼리가 생성됨
+
+        // 주의 : 엔티티 클래스 내부에서는 되도록 세터보다 의미를 가진 메소드를 만들어 사용할 것
+    }
+
     public List<Item> findItems(){
         return itemRepository.findAll();
     }
