@@ -14,6 +14,8 @@ Subproject and name configuration
 - 📁 main/ : Source code for the main application
 - 📁 test/ : Source code for tests
 
+<br/>
+
 ### 📝 Study Notes
 A collection of concise notes from what I've studied.
 #### 📘 Domain_DB.md
