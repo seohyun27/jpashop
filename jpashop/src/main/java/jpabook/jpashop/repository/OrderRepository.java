@@ -29,7 +29,7 @@ public class OrderRepository {
 
 
     /// 원하는 멤버의 주문을 검색하는 기능 ///
-    public List<Order> findAll(OrderSearch orderSearch){
+    public List<Order> findAllByString(OrderSearch orderSearch){
 
         // JPA Criteria로 처리
         // 해당 방법 역시 너무 복잡해서 실제로 사용하기는 어려움
