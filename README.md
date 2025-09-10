@@ -18,4 +18,7 @@ Subproject and name configuration
 
 ### 📝 Study Notes
 A collection of concise notes from what I've studied.
-#### 📘 Domain_DB.md
+#### 📘 domain-db.md
+Overview of entity design and database configuration in Spring Boot.
+#### 📘 repository-service-controller.md
+Summary of the layered architecture in Spring Boot: Repository, Service, and Controller.
