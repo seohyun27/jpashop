@@ -115,6 +115,18 @@ private Member member;
 
 <br/>
 
+## 클래스 어노테이션
+- @Entity : 엔티티 선언
+- @Table(name = "orders") : 테이블의 이름을 수동으로 설정. 현재의 경우 테이블의 이름은 orders가 됨
+- @Getter : lombok 라이브러리의 어노테이션. 게터는 열어두고 세터는 닫아두는 게 권장됨
+- @NoArgsConstructor(access = AccessLevel.PROTECTED)
+  - 인자가 없는 기본 생성자를 protected로 생성 -> 외부 패키지에서 사용할 수 없도록 
+  - 새 Order 객체를 생성하는 건 반드시 별도로 작성한 static 생성자 메소드를 이용해야 한다
+  - 함부로 생성자를 열어둘 경우 필요한 정보가 비워진 상태에서 객체가 만들어질 위험이 있다
+
+<br/>
+
+
 ## 테이블 생성
 - @Entity가 붙은 클래스를 스캔하고 매핑 정보를 읽는다
 - application.yml 또는 application.properties에 DDL 자동 생성 설정이 켜져 있으면 DB 테이블을 자동으로 생성한다
