@@ -1,6 +1,7 @@
 package jpabook.jpashop.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +15,7 @@ public class Member {
     @Id @GeneratedValue
     @Column(name = "member_id") // DB 테이블의 "member_id"와 연결. DB에서는 해당 이름으로 동작
     private Long id;            // 테이블 식별 id, 자동으로 생성됨
-    
+
     private String name;
 
     @Embedded
