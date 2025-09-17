@@ -53,15 +53,19 @@ public class MemberService {
 
 
     /// 회원 전체 조회 ///
-    @Transactional(readOnly = true) // 조회만을 실행하게 될 때 성능을 더 최적화해줌
     public List<Member> findMembers(){
         return memberRepository.findAll();
     }
 
 
     /// 회원 1명 조희 ///
-    @Transactional(readOnly = true)
     public Member findOne(Long id){
         return memberRepository.findOne(id);
+    }
+
+    @Transactional
+    public void update(Long id, String name) {
+        Member member = memberRepository.findOne(id);   // 영속성 객체 꺼내기
+        member.setName(name);   // 변경 감지
     }
 }

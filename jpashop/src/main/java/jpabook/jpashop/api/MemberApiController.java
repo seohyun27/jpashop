@@ -1,14 +1,17 @@
 package jpabook.jpashop.api;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.service.MemberService;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /// HTTP 정리 ///
 /*
@@ -46,12 +49,52 @@ public class MemberApiController {
     }
 
     @PostMapping("/api/v2/members")
-    public CreateMemberResponse saveMemberV1(@RequestBody @Valid CreateMemberRequest request) {
+    public CreateMemberResponse saveMemberV2(@RequestBody @Valid CreateMemberRequest request) {
         Member member = new Member();
         member.setName(request.getName());
 
         Long id = memberService.join(member);
         return new CreateMemberResponse(id);
+    }
+
+    @PutMapping("/api/v2/members/{id}")     // PUT : 같은 요청을 여러 번 넣어도 하나의 여러 개의 결과가 생기지 않음 -> 수정에 용이함
+    public UpdateMemberResponse updateMemberV2(@PathVariable("id") Long id,
+                                               @RequestBody @Valid UpdateMemberRequest request){
+        memberService.update(id, request.getName());    // 수정을 void로 처리
+        Member findMember = memberService.findOne(id);  // 조회는 별도의 메소드를 사용함으로써 유지보수성을 높임
+        return new UpdateMemberResponse(findMember.getId(), findMember.getName());
+    }
+
+    @GetMapping("/api/v1/members")
+    public List<Member> membersV1(){
+        return memberService.findMembers();     // 엔티티를 바로 반환하면 엔티티 정보들이 외부로 노출됨
+                                                // 패스워드, id 등의 중요한 정보까지 노출됨
+    }
+
+    @GetMapping("/api/v2/members")
+    public Result membersV2(){
+        List<Member> findMembers = memberService.findMembers();
+
+        // 가지고 온 Member 리스트를 MemberDTO 리스트로 바꾸기
+        List<MemberDTO> collect = new ArrayList<MemberDTO>();
+        for(Member member : findMembers){
+            MemberDTO dto = new MemberDTO(member.getName());
+            collect.add(dto);
+        }
+
+        return new Result(collect);
+    }
+
+
+    @Data
+    static class CreateMemberRequest {  // 프론트 측에서도 http body에 "name"이라는 변수가 있어야 함 -> 변수명 일치!
+
+        // @NotEmpty : 이름은 필수값이므로 빼고 저장될 수 없다
+        // 보통 @ControllerAdvice를 사용해 전역 예외 처리기를 만든 뒤 프론트 측에 예외를 전달한다
+        @NotEmpty(message = "이름은 비워져 있을 수 없습니다.")
+        private String name;
+
+        // 이름 외 다른 어트리뷰트를 채우는 과정을 생략함
     }
 
     @Data
@@ -64,13 +107,29 @@ public class MemberApiController {
     }
 
     @Data
-    static class CreateMemberRequest {  // 프론트 측에서도 http body에 "name"이라는 변수가 있어야 함 -> 변수명 일치!
-
-        // @NotEmpty : 이름은 필수값이므로 빼고 저장될 수 없다
-        // 보통 @ControllerAdvice를 사용해 전역 예외 처리기를 만든 뒤 프론트 측에 예외를 전달한다
-        @NotEmpty(message = "이름은 비워져 있을 수 없습니다.")
+    static class UpdateMemberRequest {  // DTO의 경우 복잡한 로직이 오가지 않으므로 lombok을 사용하는 것이 상대적으로 자유로움
         private String name;
-        
-        // 이름 외 다른 어트리뷰트를 채우는 과정을 생략함
     }
+
+    @Data
+    @AllArgsConstructor
+    static class UpdateMemberResponse {
+        private Long id;
+        private String name;
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class Result<T> {    // 제네릭 타입 사용
+        private T data;
+
+        // Result 안에서 전체 멤버의 합계 등 다른 정보를 포함할 수 있다
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class MemberDTO{ // 고객의 이름만을 반환하는 API를 만든다고 가정했을 때
+        private String name;
+    }
+
 }

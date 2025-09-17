@@ -9,7 +9,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create    # 애플리케이션의 실행 시점에 테이블을 삭제 후 다시 생성
+      ddl-auto: none    # create : 애플리케이션의 실행 시점에 테이블을 삭제 후 다시 생성
     properties:
       hibernate:
         # show_sql: true    # System.out에 로그 출력 -> 로그 출력은 로거에서 이루어져야 함

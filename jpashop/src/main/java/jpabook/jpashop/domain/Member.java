@@ -1,5 +1,6 @@
 package jpabook.jpashop.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
@@ -25,5 +26,4 @@ public class Member {
     // order 테이블의 "member" 필드에 의해 매핑된 읽기 전용 클래스임을 명시
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
-
 }
