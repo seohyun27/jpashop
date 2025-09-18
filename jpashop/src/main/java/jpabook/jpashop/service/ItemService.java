@@ -25,6 +25,7 @@ public class ItemService {
         itemRepository.save(item);
     }
 
+    @Transactional
     public void updateItem(Long id, String name, int price, int stockQuantity){
         Item item = itemRepository.findOne(id); // DB 내에서 꺼낸 영속성 객체
         item.setName(name);

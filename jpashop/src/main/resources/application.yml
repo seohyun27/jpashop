@@ -1,15 +1,17 @@
 # JPA와 DB 설정
 
 spring:
+#  맥과 윈도우에서 병용으로 사용하기 위해 임시적으로 메모리 모드로 설정함
   datasource:
-    url: jdbc:h2:tcp://localhost/~/jpashop
+    url: jdbc:h2:mem:jpashop # jdbc:h2:tcp://localhost/~/jpashop
     username: sa
     password:
     driver-class-name: org.h2.Driver
 
   jpa:
     hibernate:
-      ddl-auto: none    # create : 애플리케이션의 실행 시점에 테이블을 삭제 후 다시 생성
+      ddl-auto: create    # create : 애플리케이션의 실행 시점에 테이블을 삭제 후 다시 생성
+                          # none : 테이블을 건들이지 않고 DB에 있는 상태 그대로 생성
     properties:
       hibernate:
         # show_sql: true    # System.out에 로그 출력 -> 로그 출력은 로거에서 이루어져야 함
